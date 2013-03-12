@@ -3,7 +3,8 @@ package envy;
 import java.util.ArrayList;
 import java.util.List;
 
-import refine.basic.AllEntitiesMapping;
+import moveChange.basic.AllEntitiesMapping;
+
 
 public class InternalClass {
 

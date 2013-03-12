@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.print.PrintException;
 
+import moveChange.dependencies.Dependency;
+
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -30,7 +32,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import refine.dependencies.Dependency;
 
 public final class DCLUtil {
 	public static final String NOME_APLICACAO = ".: dclsuite :.";
@@ -445,7 +446,7 @@ public final class DCLUtil {
 	public static Collection<Dependency> getDependenciesUsingAST(ICompilationUnit unit) throws CoreException, IOException {
 		final Collection<Dependency> dependencies = new LinkedList<Dependency>();
 
-		refine.ast.DeepDependencyVisitor cv = new refine.ast.DeepDependencyVisitor(unit);
+		moveChange.ast.DeepDependencyVisitor cv = new moveChange.ast.DeepDependencyVisitor(unit);
 
 		dependencies.addAll(cv.getDependencies());
 		return dependencies;

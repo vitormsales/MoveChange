@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import refine.basic.AllEntitiesMapping;
-import refine.methods.AllMethods;
-import refine.methods.Method;
-import refine.utils.MoveMethod;
-import refine.utils.PrintOutput;
-import refine.utils.SorMapByValues;
+import moveChange.basic.AllEntitiesMapping;
+import moveChange.methods.AllMethods;
+import moveChange.methods.Method;
+import moveChange.utils.MoveMethod;
+import moveChange.utils.PrintOutput;
+import moveChange.utils.SorMapByValues;
+
 
 public class FeatureEnvy {
 
