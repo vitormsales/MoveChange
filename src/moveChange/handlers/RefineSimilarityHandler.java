@@ -7,9 +7,7 @@ import moveChange.Activator;
 import moveChange.approach.AleatoryMoves;
 import moveChange.ast.DeepDependencyVisitor;
 import moveChange.basic.AllEntitiesMapping;
-import moveChange.basic.CoefficientsResolution.CoefficientStrategy;
 import moveChange.methods.AllMethods;
-import moveChange.methods.StatisticsMethod2Method;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -27,8 +25,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import dclsuite.util.DCLUtil;
-import envy.FeatureEnvy;
-import envy.InternalClass;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -80,7 +76,6 @@ public class RefineSimilarityHandler extends AbstractHandler {
 						continue;
 					}
 
-					InternalClass.getInstance().putNewInternalClass(className);
 
 					IFile resource = DCLUtil.getFileFromClassName(javaProject,
 							className);
@@ -104,25 +99,7 @@ public class RefineSimilarityHandler extends AbstractHandler {
 				AllMethods allMethods = new AllMethods(allDeepDependency);
 				System.out.println(" Terminou AllMethods");
 				AleatoryMoves aMoves = new AleatoryMoves(allMethods,numberOfClass);
-				
-				
-//
-//				FeatureEnvy.getInstance().sugestFeatureEnvyMoves(
-//						allMethods);
-				// for (Method method : allMethods.getAllMethodsList()) {
-				// System.out.println(method);
-				// for (Integer ID : method.getMethodsAcessDependenciesID()) {
-				// System.out.println(AllEntitiesMapping.getInstance().getByID(ID));
-				//
-				// }
-				// System.out.println();
-				// }
-
-				// tornando visivel para o coletor de lixo
-				allDeepDependency = null;
-
-				// allMethods.excludeConstructors();
-				// allMethods.excludeDependeciesLessThan(5);
+				aMoves.changeProgram();
 
 				System.out.println("Fim");
 			}

@@ -2,8 +2,6 @@ package moveChange.utils;
 
 import java.util.List;
 
-import envy.InternalClass;
-
 public class JavaTypes {
 
 	private final static String[] anottationTypes = { "java.lang.Override",

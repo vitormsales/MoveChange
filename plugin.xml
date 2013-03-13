@@ -18,7 +18,7 @@
          point="org.eclipse.ui.handlers">
       <handler
             commandId="refine.commands.sampleCommand"
-            class="movechange.handlers.RefineSimilarityHandler">
+            class="moveChange.handlers.RefineSimilarityHandler">
       </handler>
    </extension>
    <extension
