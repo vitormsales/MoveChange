@@ -14,6 +14,7 @@ import moveChange.basic.AllEntitiesMapping;
 import moveChange.methods.AllMethods;
 import moveChange.methods.Method;
 import moveChange.utils.MoveMethod;
+import moveChange.utils.PrintOutput;
 
 import org.eclipse.jdt.core.IMethod;
 
@@ -35,7 +36,7 @@ public class AleatoryMoves {
 
 	}
 
-	public void changeProgram() {
+	public void changeProgram(String activeProjectName) {
 		// TODO Auto-generated method stub
 
 		System.out.println("numero de classe " + numberOfClass);
@@ -45,8 +46,8 @@ public class AleatoryMoves {
 		List<Method> methodList = allMethods.getAllMethodsList();
 
 		Random random = new Random();
-		while (movimentos.size() < numberofMoves) {
 
+		while (movimentos.size() < numberofMoves) {
 			int candidateIndex = random.nextInt(methodList.size());
 			Method sourceMethod = methodList.get(candidateIndex);
 			tryMove(sourceMethod);
@@ -56,13 +57,29 @@ public class AleatoryMoves {
 		Iterator<Entry<Method, String>> it = movimentos.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry<Method, String> entry = it.next();
+
+			MoveMethod.executeMove(allMethods.getIMethod(entry.getKey()),
+					entry.getValue());
 			System.out.println(entry.getKey());
 			System.out.println(entry.getValue());
 			System.out.println();
 
-			MoveMethod.executeMove(allMethods.getIMethod(entry.getKey()),
-					entry.getValue());
+			writeMoves(entry.getKey(), entry.getValue(), activeProjectName);
+
 		}
+
+	}
+
+	private void writeMoves(Method sourceMethod, String classe,
+			String activeProjectName) {
+		// TODO Auto-generated method stub
+		String meString = sourceMethod.toString();
+		PrintOutput.write("metodo " + meString + " movido para " + classe
+				+ "\n", "moveDone" + activeProjectName);
+
+		String parts[] = meString.split("::", 2);
+		PrintOutput.write("metodo " + classe + "::" + parts[1] + " deve mover "
+				+ parts[0] + "\n", "needDo" + activeProjectName);
 
 	}
 

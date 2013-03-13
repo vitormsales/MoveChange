@@ -49,6 +49,9 @@ public class MoveMethod {
 		processor.setInlineDelegator(true);
 		processor.setRemoveDelegator(true);
 		processor.setDeprecateDelegates(false);
+		processor.setUseGetters(true);
+		processor.setUseSetters(true);
+	
 
 		Refactoring ref = new MoveRefactoring(processor);
 		ref.checkInitialConditions(new NullProgressMonitor());
@@ -120,7 +123,6 @@ public class MoveMethod {
 
 
 			if (status.getSeverity() > RefactoringStatus.WARNING) {
-				System.out.println("!ok :-( FALHA QUE NAO DEVERIA OCORRE POIS JA CHECADO");
 				return;
 			}
 

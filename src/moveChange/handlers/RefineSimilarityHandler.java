@@ -99,7 +99,7 @@ public class RefineSimilarityHandler extends AbstractHandler {
 				AllMethods allMethods = new AllMethods(allDeepDependency);
 				System.out.println(" Terminou AllMethods");
 				AleatoryMoves aMoves = new AleatoryMoves(allMethods,numberOfClass);
-				aMoves.changeProgram();
+				aMoves.changeProgram(activeProjectName);
 
 				System.out.println("Fim");
 			}
