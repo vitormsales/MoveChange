@@ -11,7 +11,7 @@ import java.util.Map;
 
 import javax.print.PrintException;
 
-import moveChange.dependencies.Dependency;
+import movechange.dependencies.Dependency;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
@@ -446,7 +446,7 @@ public final class DCLUtil {
 	public static Collection<Dependency> getDependenciesUsingAST(ICompilationUnit unit) throws CoreException, IOException {
 		final Collection<Dependency> dependencies = new LinkedList<Dependency>();
 
-		moveChange.ast.DeepDependencyVisitor cv = new moveChange.ast.DeepDependencyVisitor(unit);
+		movechange.ast.DeepDependencyVisitor cv = new movechange.ast.DeepDependencyVisitor(unit);
 
 		dependencies.addAll(cv.getDependencies());
 		return dependencies;
