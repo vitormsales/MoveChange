@@ -9,8 +9,16 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
+<<<<<<< HEAD
 import moveChange.dependencies.Dependency;
 
+=======
+import javax.print.PrintException;
+
+import movechange.dependencies.Dependency;
+
+import org.eclipse.core.resources.ICommand;
+>>>>>>> fe9d8ee3b7cb91f56fa21b6af37eae38e732da28
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -443,7 +451,11 @@ public final class DCLUtil {
 	public static Collection<Dependency> getDependenciesUsingAST(ICompilationUnit unit) throws CoreException, IOException {
 		final Collection<Dependency> dependencies = new LinkedList<Dependency>();
 
+<<<<<<< HEAD
 		moveChange.ast.DeepDependencyVisitor cv = new moveChange.ast.DeepDependencyVisitor(unit);
+=======
+		movechange.ast.DeepDependencyVisitor cv = new movechange.ast.DeepDependencyVisitor(unit);
+>>>>>>> fe9d8ee3b7cb91f56fa21b6af37eae38e732da28
 
 		dependencies.addAll(cv.getDependencies());
 		return dependencies;
