@@ -48,6 +48,7 @@ public class AleatoryMoves {
 		Random random = new Random();
 
 		while (movimentos.size() < numberofMoves) {
+			System.out.println("Numero de moves poss " + movimentos.size());
 			int candidateIndex = random.nextInt(methodList.size());
 			Method sourceMethod = methodList.get(candidateIndex);
 			tryMove(sourceMethod);
@@ -142,8 +143,11 @@ public class AleatoryMoves {
 		} while (samePackge
 				|| !MoveMethod.isValidCandidate(imethodSource, candidate));
 
-		movimentos.put(sourceMethod, candidate);
-
-		return true;
+		if (!movimentos.containsKey(sourceMethod)) {
+			movimentos.put(sourceMethod, candidate);
+			return true;
+		}
+		
+		return false;
 	}
 }

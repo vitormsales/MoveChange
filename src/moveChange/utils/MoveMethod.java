@@ -49,8 +49,8 @@ public class MoveMethod {
 		processor.setInlineDelegator(true);
 		processor.setRemoveDelegator(true);
 		processor.setDeprecateDelegates(false);
-		processor.setUseGetters(true);
-		processor.setUseSetters(true);
+
+
 	
 
 		Refactoring ref = new MoveRefactoring(processor);
