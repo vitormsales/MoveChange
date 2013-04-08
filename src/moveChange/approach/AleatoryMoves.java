@@ -22,13 +22,16 @@ public class AleatoryMoves {
 
 	AllEntitiesMapping entities = AllEntitiesMapping.getInstance();
 	AllMethods allMethods;
-	List<Integer> classUsed;
+	List<Integer> sourceClassUsed;
+	List<Integer> targetClassUsed;
 	Map<Method, String> movimentos;
 	int numberOfClass;
+	int cont = 0;
 
 	public AleatoryMoves(AllMethods allMethods, int numberOfClass) {
 		// TODO Auto-generated constructor stub
-		this.classUsed = new ArrayList<Integer>();
+		this.sourceClassUsed = new ArrayList<Integer>();
+		this.targetClassUsed = new ArrayList<Integer>();
 		this.allMethods = allMethods;
 		this.movimentos = new HashMap<Method, String>();
 		this.numberOfClass = numberOfClass;
@@ -41,17 +44,24 @@ public class AleatoryMoves {
 
 		System.out.println("numero de classe " + numberOfClass);
 
-		final int numberofMoves = (int) (0.05 * (numberOfClass));
+		final int numberofMoves = (int) (0.1 * (numberOfClass));
+		
+		PrintOutput.write("Num metodos devem mover " + (int) (0.05 * (numberOfClass))+"\n", "needDo" + activeProjectName);
 
 		List<Method> methodList = allMethods.getAllMethodsList();
 
 		Random random = new Random();
 
-		while (movimentos.size() < numberofMoves) {
+		while (movimentos.size() < numberofMoves && cont < 10000) {
 			System.out.println("Numero de moves poss " + movimentos.size());
 			int candidateIndex = random.nextInt(methodList.size());
 			Method sourceMethod = methodList.get(candidateIndex);
-			tryMove(sourceMethod);
+			if (allMethods.getMoveIspossible().contains(
+					sourceMethod.getNameID())) {
+				tryMove(sourceMethod);
+				cont++;
+			}
+
 		}
 
 		System.out.println("MOVIMENTOS");
@@ -90,13 +100,14 @@ public class AleatoryMoves {
 		final int TAMMINIMO = 4;
 		int dependeciesSize = sourceMethod.getMethodsDependencies().size();
 
-		if (!classUsed.contains(sourceMethod.getSourceClassID())
+		if (!sourceClassUsed.contains(sourceMethod.getSourceClassID())
 				&& dependeciesSize > TAMMINIMO) {
 			List<String> possibilities = MoveMethod
 					.getpossibleRefactoring(allMethods.getIMethod(sourceMethod));
 			if (possibilities.size() > 0
 					&& canChooseDestiny(possibilities, sourceMethod)) {
-				classUsed.add(sourceMethod.getSourceClassID());
+				sourceClassUsed.add(sourceMethod.getSourceClassID());
+				cont = 0;
 				return;
 			}
 		}
@@ -108,6 +119,8 @@ public class AleatoryMoves {
 			Method sourceMethod) {
 		// TODO Auto-generated method stub
 
+		//treaty(possibilities);
+
 		IMethod imethodSource = allMethods.getIMethod(sourceMethod);
 
 		String sourcePackge = entities.getByID(sourceMethod.getNameID());
@@ -117,7 +130,7 @@ public class AleatoryMoves {
 		Random rand = new Random();
 		boolean samePackge;
 		String candidate;
-
+		int targetID;
 		Set<Integer> tried = new HashSet<Integer>();
 
 		do {
@@ -139,15 +152,43 @@ public class AleatoryMoves {
 			}
 
 			tried.add(indexCandidate);
+			targetID = entities.getByName(treaty(candidate));
 
 		} while (samePackge
-				|| !MoveMethod.isValidCandidate(imethodSource, candidate));
+				|| !MoveMethod.isValidCandidate(imethodSource, candidate)
+				|| targetClassUsed.contains(targetID));
 
 		if (!movimentos.containsKey(sourceMethod)) {
 			movimentos.put(sourceMethod, candidate);
+			targetClassUsed.add(targetID);
 			return true;
 		}
-		
+
 		return false;
+	}
+
+	private static String treaty(String candidate) {
+		// TODO Auto-generated method stub
+
+		
+
+			int indexBegin = candidate.indexOf('<');
+
+			if (indexBegin > 0) {
+				String treatyName = candidate.substring(0, indexBegin);
+				return treatyName;
+
+			}
+
+			indexBegin = candidate.indexOf('[');
+			if (indexBegin > 0) {
+				String treatyName = candidate.substring(0, indexBegin);
+				return treatyName;
+
+			}
+		
+
+		return candidate;
+
 	}
 }
