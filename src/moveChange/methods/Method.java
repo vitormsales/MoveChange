@@ -52,7 +52,7 @@ public class Method {
 	public void setNewMethodsDependencies(List<String> dependeciesList) {
 
 		for (String dependecy : dependeciesList) {
-			if (JavaTypes.mustRemoveTypes(dependecy))
+			if (dependecy == null || JavaTypes.mustRemoveTypes(dependecy))
 				return;
 		}
 
@@ -63,6 +63,7 @@ public class Method {
 				if (JavaTypes.ismethodOrAtribute(dependency)) {
 					depedencyID = AllEntitiesMapping.getInstance().getByName(
 							dependency);
+					
 					methodsAcessDependenciesID.add(depedencyID);
 				}
 			}

@@ -50,9 +50,6 @@ public class MoveMethod {
 		processor.setRemoveDelegator(true);
 		processor.setDeprecateDelegates(false);
 
-
-	
-
 		Refactoring ref = new MoveRefactoring(processor);
 		ref.checkInitialConditions(new NullProgressMonitor());
 
@@ -62,6 +59,9 @@ public class MoveMethod {
 	public static List<String> getpossibleRefactoring(IMethod method) {
 
 		List<String> candidatesList = new ArrayList<String>();
+
+		if (method == null){
+			return candidatesList;}
 
 		MoveInstanceMethodProcessor processor = new MoveInstanceMethodProcessor(
 				method,
@@ -121,7 +121,6 @@ public class MoveMethod {
 			RefactoringStatus status = refactoring
 					.checkAllConditions(new NullProgressMonitor());
 
-
 			if (status.getSeverity() > RefactoringStatus.WARNING) {
 				return;
 			}
@@ -131,11 +130,12 @@ public class MoveMethod {
 							CheckConditionsOperation.ALL_CONDITIONS),
 					RefactoringStatus.FATAL);
 
-			PerformChangeOperation perform = new PerformChangeOperation(create);
-
-			IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			// este comando aplica o refatoramento
-			workspace.run(perform, new NullProgressMonitor());
+			// PerformChangeOperation perform = new
+			// PerformChangeOperation(create);
+			//
+			// IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			// // este comando aplica o refatoramento
+			// workspace.run(perform, new NullProgressMonitor());
 
 		} catch (Exception e) {
 			e.printStackTrace();

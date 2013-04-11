@@ -46,7 +46,7 @@ public class AleatoryMoves {
 
 		final int numberofMoves = (int) (0.1 * (numberOfClass));
 		
-		PrintOutput.write("Num metodos devem mover " + (int) (0.05 * (numberOfClass))+"\n", "needDo" + activeProjectName);
+		PrintOutput.write("Num metodos devem mover " + (int) (0.03 * (numberOfClass))+"\n", "needDo" + activeProjectName);
 
 		List<Method> methodList = allMethods.getAllMethodsList();
 
@@ -130,7 +130,7 @@ public class AleatoryMoves {
 		Random rand = new Random();
 		boolean samePackge;
 		String candidate;
-		int targetID;
+		Integer targetID;
 		Set<Integer> tried = new HashSet<Integer>();
 
 		do {
@@ -153,7 +153,7 @@ public class AleatoryMoves {
 
 			tried.add(indexCandidate);
 			targetID = entities.getByName(treaty(candidate));
-
+			
 		} while (samePackge
 				|| !MoveMethod.isValidCandidate(imethodSource, candidate)
 				|| targetClassUsed.contains(targetID));

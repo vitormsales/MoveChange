@@ -28,7 +28,6 @@ import moveChange.utils.RefineSignatures;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.JavaModelException;
 
-
 public class AllMethods {
 
 	private List<Method> allMethodsList;
@@ -99,7 +98,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							acDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof AccessFieldDependency) {
 
@@ -132,7 +131,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							acFieldDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof SimpleNameDependency) {
 
@@ -144,7 +143,7 @@ public class AllMethods {
 
 					String sourceClass = dep.getClassNameA();
 					String dependecyClass = dep.getClassNameB();
-					
+
 					// String field = dep.getClassNameB() + "."
 					// + ((SimpleNameDependency) dep).getVariableName();
 
@@ -164,7 +163,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							snDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof AnnotateMethodDependency) {
 
@@ -187,7 +186,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							anDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof CreateMethodDependency) {
 
@@ -211,7 +210,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							cmDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof DeclareParameterDependency) {
 
@@ -239,7 +238,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							dpDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof DeclareReturnDependency) {
 
@@ -262,7 +261,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							drDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof DeclareLocalVariableDependency) {
 
@@ -291,7 +290,7 @@ public class AllMethods {
 					createMethod(methodA, sourceClass, dependeciesList,
 							dlvDependency.getImethodA());
 
-				}
+				} else
 
 				if (dep instanceof ThrowDependency) {
 
@@ -326,8 +325,8 @@ public class AllMethods {
 			Method m = it.next();
 
 			PrintOutput.write(
-					AllEntitiesMapping.getInstance().getByID(
-							m.getNameID()) + "\n", "conjuntos");
+					AllEntitiesMapping.getInstance().getByID(m.getNameID())
+							+ "\n", "conjuntos");
 
 			for (Integer chaves : m.getMethodsDependencies()) {
 				PrintOutput
@@ -337,7 +336,7 @@ public class AllMethods {
 
 			PrintOutput.write("\n \n", "conjuntos");
 		}
-		 //#............
+		// #............
 
 	}
 
@@ -384,7 +383,7 @@ public class AllMethods {
 		// TODO Auto-generated method stub
 		return iMethodMapping.get(method.getNameID());
 	}
-	
+
 	public IMethod getIMethod(int methodId) {
 		// TODO Auto-generated method stub
 		return iMethodMapping.get(methodId);

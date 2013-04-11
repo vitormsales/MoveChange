@@ -76,7 +76,6 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
-
 public class DeepDependencyVisitor extends ASTVisitor {
 	private List<Dependency> dependencies;
 
@@ -462,14 +461,14 @@ public class DeepDependencyVisitor extends ASTVisitor {
 								.getName().getIdentifier(), node.getName()
 								.getIdentifier(), iMethodA, iMethodB,
 						isStatic != 0));
-				
-//				Forma nova
-//				this.dependencies.add(new AccessMethodDependency(
-//						this.className, node.resolveMethodBinding()
-//								.getDeclaringClass().getQualifiedName(), md
-//								.getName().getIdentifier(), node.getName()
-//								.getIdentifier(), iMethodA, iMethodB,
-//						isStatic != 0));
+
+				// Forma nova
+				// this.dependencies.add(new AccessMethodDependency(
+				// this.className, node.resolveMethodBinding()
+				// .getDeclaringClass().getQualifiedName(), md
+				// .getName().getIdentifier(), node.getName()
+				// .getIdentifier(), iMethodA, iMethodB,
+				// isStatic != 0));
 
 				// Forma original
 				// this.dependencies.add(new AccessMethodDependency(
@@ -950,19 +949,25 @@ public class DeepDependencyVisitor extends ASTVisitor {
 
 	private String getTargetClassName(ITypeBinding type) {
 		String result = "";
+
 		if (!type.isAnonymous() && type.getQualifiedName() != null
 				&& !type.getQualifiedName().isEmpty()) {
 			result = type.getQualifiedName();
 		} else if (type.isLocal() && type.getName() != null
 				&& !type.getName().isEmpty()) {
 			result = type.getName();
-		} else if (!type.getSuperclass().getQualifiedName()
-				.equals("java.lang.Object")
-				|| type.getInterfaces() == null
-				|| type.getInterfaces().length == 0) {
-			result = type.getSuperclass().getQualifiedName();
+		} else if (type.getInterfaces() == null
+				|| type.getInterfaces().length == 0
+				|| !type.getSuperclass().getQualifiedName()
+						.equals("java.lang.Object")) {
+			if (type.getSuperclass() != null) {
+				result = type.getSuperclass().getQualifiedName();
+			} else
+				return null;
+
 		} else if (type.getInterfaces() != null
 				&& type.getInterfaces().length == 1) {
+
 			result = type.getInterfaces()[0].getQualifiedName();
 		}
 

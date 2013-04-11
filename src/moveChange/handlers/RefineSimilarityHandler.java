@@ -58,7 +58,7 @@ public class RefineSimilarityHandler extends AbstractHandler {
 
 			String activeProjectName;
 
-			int numberOfClass=0;
+			int numberOfClass = 0;
 			if (editorPart != null) {
 
 				IFileEditorInput input = (IFileEditorInput) editorPart
@@ -71,17 +71,16 @@ public class RefineSimilarityHandler extends AbstractHandler {
 				IJavaProject javaProject = JavaCore.create(project);
 
 				for (String className : DCLUtil.getClassNames(project)) {
-					
+
 					if (className == null) {
 						continue;
 					}
-
 
 					IFile resource = DCLUtil.getFileFromClassName(javaProject,
 							className);
 					ICompilationUnit unit = ((ICompilationUnit) JavaCore
 							.create((IFile) resource));
-			
+
 					System.out.println("AST para " + unit.getElementName());
 					DeepDependencyVisitor deepDependency = new DeepDependencyVisitor(
 							unit);
@@ -89,7 +88,6 @@ public class RefineSimilarityHandler extends AbstractHandler {
 					numberOfClass++;
 				}
 
-				
 				System.out.println(" inciando AllEntitiesMapping");
 				AllEntitiesMapping.getInstance().createAllDependeciesMapping(
 						allDeepDependency);
@@ -98,7 +96,11 @@ public class RefineSimilarityHandler extends AbstractHandler {
 				System.out.println(" inciando AllMethods");
 				AllMethods allMethods = new AllMethods(allDeepDependency);
 				System.out.println(" Terminou AllMethods");
-				AleatoryMoves aMoves = new AleatoryMoves(allMethods,numberOfClass);
+
+				allDeepDependency = null;
+				
+				AleatoryMoves aMoves = new AleatoryMoves(allMethods,
+						numberOfClass);
 				aMoves.changeProgram(activeProjectName);
 
 				System.out.println("Fim");

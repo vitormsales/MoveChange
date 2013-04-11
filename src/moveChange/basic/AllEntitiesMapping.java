@@ -21,7 +21,6 @@ import moveChange.utils.RefineSignatures;
 
 import org.eclipse.jdt.core.JavaModelException;
 
-
 public class AllEntitiesMapping {
 
 	private AbstractMap<Integer, String> allDependeciesMapByID = null;
@@ -86,7 +85,7 @@ public class AllEntitiesMapping {
 					insertMapping(classeB);
 					insertMapping(methodB);
 
-				}
+				} else
 
 				if (dep instanceof AccessFieldDependency) {
 
@@ -103,23 +102,27 @@ public class AllEntitiesMapping {
 							dep.getClassNameB(),
 							acFieldDependency.getiVariableBinding());
 
-					String fieldType = acFieldDependency.getiVariableBinding()
-							.getType().getQualifiedName();
-					
-					// System.out.println("AccessFieldDependency");
-					// System.out.println(methodA);
-					// System.out.println(classeA);
-					// System.out.println(classeB);
-					// System.out.println(field);
-					// System.out.println();
+//					System.out.println("AccessFieldDependency");
+//					System.out.println(methodA);
+//					System.out.println(classeA);
+//					System.out.println(classeB);
+//					System.out.println(field);
+//					System.out.println();
+
+					if (field.contains(";;")) {
+						String fieldType = acFieldDependency
+								.getiVariableBinding().getType()
+								.getQualifiedName();
+						insertMapping(fieldType);
+					}
 
 					insertMapping(methodA);
 					insertMapping(classeA);
 					insertMapping(classeB);
 					insertMapping(field);
-					insertMapping(fieldType);
+					
 
-				}
+				} else
 
 				if (dep instanceof SimpleNameDependency) {
 
@@ -134,7 +137,7 @@ public class AllEntitiesMapping {
 					String field = RefineSignatures.getFieldSignature(
 							dep.getClassNameB(),
 							snDependency.getiVariableBinding());
-					
+
 					String fieldType = snDependency.getiVariableBinding()
 							.getType().getQualifiedName();
 
@@ -151,7 +154,7 @@ public class AllEntitiesMapping {
 					insertMapping(field);
 					insertMapping(fieldType);
 
-				}
+				} else
 
 				if (dep instanceof AnnotateMethodDependency) {
 
@@ -172,7 +175,7 @@ public class AllEntitiesMapping {
 					// System.out.println(classeA);
 					// System.out.println(classeB);
 					// System.out.println();
-				}
+				} else
 
 				if (dep instanceof CreateMethodDependency) {
 
@@ -193,7 +196,7 @@ public class AllEntitiesMapping {
 					insertMapping(methodA);
 					insertMapping(classeB);
 
-				}
+				} else
 
 				if (dep instanceof DeclareParameterDependency) {
 
@@ -215,7 +218,7 @@ public class AllEntitiesMapping {
 					insertMapping(classeA);
 					insertMapping(classeB);
 
-				}
+				} else
 
 				if (dep instanceof DeclareReturnDependency) {
 
@@ -237,7 +240,7 @@ public class AllEntitiesMapping {
 					insertMapping(classeA);
 					insertMapping(classeB);
 
-				}
+				} else
 
 				if (dep instanceof DeclareLocalVariableDependency) {
 
@@ -259,7 +262,7 @@ public class AllEntitiesMapping {
 					insertMapping(classeA);
 					insertMapping(classeB);
 
-				}
+				} else
 
 				if (dep instanceof ThrowDependency) {
 
@@ -292,7 +295,8 @@ public class AllEntitiesMapping {
 		String address = "Tudo";
 		while (it.hasNext()) {
 			String temp = allDependeciesMapByID.get(it.next());
-//			System.out.println(temp + " " + allDependeciesMapByName.get(temp));
+			// System.out.println(temp + " " +
+			// allDependeciesMapByName.get(temp));
 			out.write(temp + " " + allDependeciesMapByName.get(temp) + "\n",
 					address);
 
@@ -300,9 +304,9 @@ public class AllEntitiesMapping {
 		out.write("total de possiveis dep " + allDependeciesMapByID.size(),
 				address);
 		out.finish(address);
-//		System.out.println("total de possiveis dep "
-//				+ allDependeciesMapByID.size());
-//		System.out.println("\nallDependecies FINISH\n\n");
+		// System.out.println("total de possiveis dep "
+		// + allDependeciesMapByID.size());
+		// System.out.println("\nallDependecies FINISH\n\n");
 		// ###############
 
 	}
